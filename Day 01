@@ -1,0 +1,97 @@
+# 1 Const Expression
+condition a: const
+condition b: determined at compile time
+constexpr int sz = size(); // error if size is determined at runtime
+
+# 2 Type Aliases
+// typedef 
+typedef double wages;
+// alias declaration
+using SI = Sales_item;
+
+# 3 auto type specifier
+auto itme = val1 + val2;
+auto i = 0, *p = &i;
+auto sz = 0, pi = 3.14 // error inconsistent
+
+int i = 0, &r = i;
+auto a = r; // a is an int
+
+const int ci = i, &cr = ci;
+auto b = ci; // b is an int(top level const in ci is dropped)
+auto c = cr; // c is an int
+auto d = &i;
+auto e = &ci; // e is const int *
+
+b = ci is copy 
+e = &ci; just copy the pointer, so const is not dropped
+
+const auto f = ci; // f has type const int
+
+auto &g = ci; // g is a const int&
+auto &h = 42; // error
+const auto &j = 42
+
+# decltype Type Specifier
+decltype and References
+decltype(*p) c; // error c is int & and must be initialized
+
+int i = 42;
+decltype(i) e; // ok e is an int
+decltype((i)) d; // error d is int&
+
+# 5 for loop
+string s = "Hello, World!";
+for (auto c : s) // c is char
+for (auto &c : s) // c is char &
+
+# 6 List Initializing
+vector<string> articles = {"first", "second", "third"};
+vector<string> another {"first", "second", "third"};
+
+# 7 reference to array
+int ia[2][4] = { 0 };
+int (&row)[4] = ia[1]
+
+# 8 for with multidimensional array
+for (auto &row : ia)
+  for (auto &col : row) {
+    col = cnt;
+    ++cnt;
+  }
+
+# 9 Aliases Pointers to Multidimensional Array
+using int_array = int[4];
+typedef int int_array[4];
+
+# 10 cast
+static_cast
+dynamic_cast
+const_cast
+reinterpret_cast
+
+# 11 Array Parameters
+void print(int arr[], size_t size);
+void print(int *beg, int *end);
+void print(int(&arr)[10]);
+void print(int (*ptr)[10]); // multidimensional array
+
+# 12 Functions with Varying Parameters
+// use initializer_list
+
+// Ellipsis Parameters
+
+# 13 Pointer to Functions
+void ff(int);
+typedef void (*pf)(int);
+typedef decltype(ff) *pf
+using F = void (int);
+using PF = void (*)(int);
+
+PF f1(int); // f1 return pinter to function
+F *f1(int); // f1 return pointer to function
+// function couldn't return function, but pointer to function
+
+# 14 Implicit Class Type Conversion
+Only One Class-Type Conversion is Allowed
+Class-Type Conversions Are Not Always Useful
