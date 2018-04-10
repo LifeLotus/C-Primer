@@ -1,0 +1,37 @@
+# 1 Lambdas
+[capture list] (parameter list)-> return type { body }
+we can omit either or both of parameter list and return type.
+
+implicit captures
+[&]
+[=]
+
+Mutable Lambdas
+auto f = [v1] () mutable { return ++v1; }
+auto f = [&v2]() mutable { return ++v2; }
+
+# 2 Binding Arguments
+#include <functional>
+
+It is usualy straightforward to use a function in place of a lambdas
+But it not easy to write a function to replace a lambdas that capture a local variables.
+
+We can solve the problem by using Bind
+auto newCallable = bind(callable, arglist);
+using placeholders
+using std::placeholders::_1;
+using namespace std::placeholders;
+auto g = bind(f, a, b, _2, c, _1);
+g(_1, _2);
+
+bind reference
+bind(print, ref(os), _1, ' ');
+cref(os) // const reference
+
+
+
+
+
+
+
+
