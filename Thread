@@ -1,0 +1,56 @@
+#include <future>
+#Include <thread>
+#include <chrono>
+
+# 1 async
+std::future<int> result(std::async(func))
+result.get() // wait for the result
+
+# 2 package_task
+std::package_task<int(void)> task(func);
+std::future<int> result = task.get_future();
+
+task();
+result.get();
+
+# 3 thread
+std::promise<int> p;
+std::thread t(func2, std::ref(p));
+t.detach();
+
+std::futuer<int> f(p.get_future());
+f.get()
+
+# 4 mutex
+mutex
+recursive_mutex
+time_mutex
+recursive_time_mutex
+
+# 5 lock_guard
+lock_guard(mutex)
+lock_guard(mutex adopt_lock)
+
+# 6 unique_lock
+can be unlock
+
+# 7 condition
+bool flag;
+std::mutex readyMutex;
+std::condition_variable readyCondVar;
+
+void thread1() {
+  { 
+    std::lock_guard<std::mutex> lg(readyMutex);
+    readyFlag = true;
+  }
+  readyCondVar.notify_one();
+}
+
+void thread2() {
+  {
+    std::unique_lock<std::mutex> ul(readyMutex);
+    readyCondVar.wait(ul, []{return flag;});
+    }
+}
+
